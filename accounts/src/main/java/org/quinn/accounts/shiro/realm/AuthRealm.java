@@ -71,4 +71,23 @@ public class AuthRealm extends AuthorizingRealm {
 		return new SimpleAuthenticationInfo(username, password, getName());
 	}
 
+	@Override
+	public void clearCache(PrincipalCollection principals) {
+		super.clearCache(principals);
+	}
+
+	@Override
+	public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
+		super.clearCachedAuthenticationInfo(principals);
+	}
+
+	@Override
+	public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+		super.clearCachedAuthorizationInfo(principals);
+	}
+
+	public void clearAllCache() {
+		super.getAuthenticationCache().clear();
+		super.getAuthorizationCache().clear();
+	}
 }

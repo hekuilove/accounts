@@ -1,5 +1,6 @@
 package org.quinn.accounts.controller.base;
 
+
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;

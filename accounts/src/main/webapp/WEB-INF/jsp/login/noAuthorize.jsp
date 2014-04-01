@@ -7,6 +7,6 @@
 <title>LOGIN FAIL HTML</title>
 </head>
 <body>
-	<h2 align="center" style="margin-top: 200px;">不好意思，你尚无权限访问该资源，如有需要请联系管理员!!</h2>
+<font>无权限访问该资源:${exception.message }</font>
 </body>
 </html>
