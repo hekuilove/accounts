@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.quinn.accounts.model.Role;
+import org.quinn.accounts.model.base.Role;
 import org.quinn.accounts.service.base.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

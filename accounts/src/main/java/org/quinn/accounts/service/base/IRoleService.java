@@ -2,7 +2,7 @@ package org.quinn.accounts.service.base;
 
 import java.util.List;
 
-import org.quinn.accounts.model.Role;
+import org.quinn.accounts.model.base.Role;
 
 public interface IRoleService {
 

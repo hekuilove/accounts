@@ -1,4 +1,4 @@
-package org.quinn.accounts.model;
+package org.quinn.accounts.model.base;
 
 import java.util.List;
 

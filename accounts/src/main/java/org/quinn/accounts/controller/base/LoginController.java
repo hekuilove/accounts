@@ -49,7 +49,7 @@ public class LoginController extends AbstractController {
 	}
 
 	@RequestMapping(value = "successTest")
-	@RequiresAuthentication
+	@RequiresRoles(value = "admin")
 	public String successTest() {
 		Subject subject = ShiroUtils.getSubject();
 		System.out.println(subject.isAuthenticated());
@@ -57,8 +57,8 @@ public class LoginController extends AbstractController {
 		return "/login/successTest";
 	}
 
+	@RequiresRoles(value = "user1")
 	@RequestMapping(value = "successTest2")
-	@RequiresRoles(value = "管理员")
 	public String successTest2() {
 		Subject subject = ShiroUtils.getSubject();
 		System.out.println(subject.isAuthenticated());

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.quinn.accounts.model.Permission;
+import org.quinn.accounts.model.base.Permission;
 import org.quinn.accounts.service.base.IPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

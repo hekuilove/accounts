@@ -15,7 +15,7 @@ public class ExceptionHandler {
 	public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("exception", e);
-		mv.setViewName("login/noAuthorize");
+		mv.setViewName("/login/noAuthorize");
 		return mv;
 	}
 }

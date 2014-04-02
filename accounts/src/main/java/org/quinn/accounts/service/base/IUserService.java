@@ -1,6 +1,6 @@
 package org.quinn.accounts.service.base;
 
-import org.quinn.accounts.model.User;
+import org.quinn.accounts.model.base.User;
 
 public interface IUserService {
 

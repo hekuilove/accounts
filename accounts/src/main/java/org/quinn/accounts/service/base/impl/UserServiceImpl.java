@@ -2,7 +2,7 @@ package org.quinn.accounts.service.base.impl;
 
 import java.util.Map;
 
-import org.quinn.accounts.model.User;
+import org.quinn.accounts.model.base.User;
 import org.quinn.accounts.service.base.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

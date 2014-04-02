@@ -3,7 +3,7 @@ package org.quinn.accounts.service.base;
 import java.util.List;
 import java.util.Set;
 
-import org.quinn.accounts.model.Permission;
+import org.quinn.accounts.model.base.Permission;
 
 public interface IPermissionService {
 
