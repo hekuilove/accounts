@@ -13,7 +13,6 @@ public class ShiroSessionListener implements SessionListener {
 	/**
 	 * SESSION开始事件
 	 */
-	@Override
 	public void onStart(Session session) {
 		System.out.println("嘿嘿，开始了");
 	}
@@ -21,7 +20,6 @@ public class ShiroSessionListener implements SessionListener {
 	/**
 	 * SESSION停止事件
 	 */
-	@Override
 	public void onStop(Session session) {
 		System.out.println("停止了，卧槽");
 	}
@@ -29,7 +27,6 @@ public class ShiroSessionListener implements SessionListener {
 	/**
 	 * SESSION过期事件
 	 */
-	@Override
 	public void onExpiration(Session session) {
 		System.out.println("尼玛，过期了");
 	}

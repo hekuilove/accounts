@@ -14,7 +14,6 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@Override
 	public User findByUsername(String username) {
 		String sql = "SELECT * FROM T_USER WHERE USERNAME=?";
 		Map<String, Object> map = this.jdbcTemplate.queryForMap(sql, username);
@@ -27,7 +26,6 @@ public class UserServiceImpl implements IUserService {
 		return null;
 	}
 
-	@Override
 	public User findByUsernameAndPassword(String username, String password) {
 		String sql = "SELECT * FROM T_USER WHERE USERNAME=? AND PASSWORD=?";
 		Map<String, Object> map = this.jdbcTemplate.queryForMap(sql, username, password);

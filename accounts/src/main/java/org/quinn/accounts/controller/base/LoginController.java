@@ -1,8 +1,10 @@
 package org.quinn.accounts.controller.base;
 
-
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
 import org.quinn.accounts.controller.AbstractController;
 import org.quinn.accounts.shiro.ShiroUtils;
@@ -47,6 +49,7 @@ public class LoginController extends AbstractController {
 	}
 
 	@RequestMapping(value = "successTest")
+	@RequiresAuthentication
 	public String successTest() {
 		Subject subject = ShiroUtils.getSubject();
 		System.out.println(subject.isAuthenticated());
@@ -55,6 +58,7 @@ public class LoginController extends AbstractController {
 	}
 
 	@RequestMapping(value = "successTest2")
+	@RequiresRoles(value = "管理员")
 	public String successTest2() {
 		Subject subject = ShiroUtils.getSubject();
 		System.out.println(subject.isAuthenticated());

@@ -18,13 +18,11 @@ public class RoleServiceImpl implements IRoleService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@Override
 	public List<Role> findByUsername(String username) {
 		String sql = "SELECT B.* FROM T_USER_ROLE A INNER JOIN t_role B ON A.role_id = B.role_id WHERE USERNAME=?";
 		final List<Role> roles = new ArrayList<Role>();
 		this.jdbcTemplate.query(sql, new Object[] { username }, new RowCallbackHandler() {
 
-			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Role role = new Role();
 				role.setRoleId(rs.getString("ROLE_ID"));

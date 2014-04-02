@@ -23,11 +23,13 @@ import org.quinn.accounts.model.User;
 import org.quinn.accounts.service.base.IPermissionService;
 import org.quinn.accounts.service.base.IRoleService;
 import org.quinn.accounts.service.base.IUserService;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Component
 public class AuthRealm extends AuthorizingRealm {
 
+	@Autowired
+	private IRoleService roleService;
+	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		IRoleService roleService = MyApplicationContext.getBeansByType(IRoleService.class);

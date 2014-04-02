@@ -11,18 +11,16 @@
 	</bean>
 
 	<!-- 凭证匹配器 -->
-	<bean id="credentialsMatcher"
+	<!-- <bean id="credentialsMatcher"
 		class="org.quinn.accounts.shiro.credentials.RetryLimitHashedCredentialsMatcher">
 		<constructor-arg ref="cacheManager" />
 		<property name="hashAlgorithmName" value="md5" />
 		<property name="hashIterations" value="2" />
 		<property name="storedCredentialsHexEncoded" value="true" />
-	</bean>
+	</bean> -->
 
 	<!-- Realm实现 -->
 	<bean id="userRealm" class="org.quinn.accounts.shiro.realm.AuthRealm">
-		<property name="userService" ref="userService" />
-		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		<property name="cachingEnabled" value="true" />
 		<property name="authenticationCachingEnabled" value="true" />
 		<property name="authenticationCacheName" value="authenticationCache" />
@@ -32,9 +30,11 @@
 
 	<bean id="permissionResolver"
 		class="org.apache.shiro.authz.permission.WildcardPermissionResolver" />
+		
+		<!-- 
 	<bean id="authorizer" class="org.apache.shiro.authz.ModularRealmAuthorizer">
 		<property name="permissionResolver" ref="permissionResolver"></property>
-	</bean>
+	</bean> -->
 
 
 	<!-- 会话ID生成器 -->
@@ -57,14 +57,14 @@
 
 	<!-- 会话验证调度器 -->
 	<bean id="sessionValidationScheduler"
-		class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-		<property name="sessionValidationInterval" value="1800000" />
+		class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<property name="interval" value="1800000" />
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
-	
+
 	<bean id="sessionListener" class="org.quinn.accounts.shiro.ShiroSessionListener" />
 
-	<!-- 会话管理器  sessionManager，ServletContainerSessionManager直接使用Servlet session-->
+	<!-- 会话管理器 sessionManager，ServletContainerSessionManager直接使用Servlet session -->
 	<bean id="sessionManager"
 		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<property name="globalSessionTimeout" value="1800000" />
@@ -83,7 +83,7 @@
 		<property name="realm" ref="userRealm" />
 		<property name="sessionManager" ref="sessionManager" />
 		<property name="cacheManager" ref="cacheManager" />
-		<property name="authorizer" ref="authorizer" />
+		<!-- <property name="authorizer" ref="authorizer" /> -->
 		<property name="sessionMode" value="native" />
 	</bean>
 
@@ -97,16 +97,13 @@
 
 	<!-- 基于Form表单的身份验证过滤器 -->
 	<bean id="formAuthenticationFilter"
-		class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
-		<property name="usernameParam" value="username" />
-		<property name="passwordParam" value="password" />
-		<property name="loginUrl" value="/login.jsp" />
-	</bean>
+		class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter" />
+	<!--<property name="usernameParam" value="username" /> <property name="passwordParam" 
+		value="password" /> <property name="loginUrl" value="/login.jsp" /> </bean> -->
 
 	<!-- Shiro的Web过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login.jsp" />
 		<property name="unauthorizedUrl" value="/unauthorized.jsp" />
 		<property name="filters">
 			<util:map>
@@ -117,7 +114,7 @@
 			<value>
 				/index.jsp = anon
 				/unauthorized.shtml = anon
-				/login.jsp = authc
+				/usr/login.shtml =anon
 				/logout = logout
 				/** = user
 			</value>

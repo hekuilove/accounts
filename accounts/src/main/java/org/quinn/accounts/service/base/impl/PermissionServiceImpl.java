@@ -19,7 +19,6 @@ public class PermissionServiceImpl implements IPermissionService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@Override
 	public Set<Permission> findByRoles(List<String> roleIds) {
 		if (roleIds == null || roleIds.size() == 0)
 			return null;
@@ -33,7 +32,6 @@ public class PermissionServiceImpl implements IPermissionService {
 		sql.append(") GROUP BY A.permission_id");
 		this.jdbcTemplate.query(sql.toString(), roleIds.toArray(), new RowCallbackHandler() {
 
-			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Permission per = new Permission();
 				per.setPermissionId(rs.getString("PERMISSION_ID"));
