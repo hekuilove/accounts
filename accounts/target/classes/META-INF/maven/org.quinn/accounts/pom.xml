@@ -259,10 +259,10 @@
 		</dependency>
 	</dependencies>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>172.17.5.3</id>
-			<url>http://172.17.5.3:9090/michelle_repo/content/repositories/releases/</url>
+			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -270,5 +270,5 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-	</repositories>
+	</repositories> -->
 </project>

@@ -29,14 +29,14 @@
 	<table align="center" style="margin-top: 80px; width: 600px;">
 		<tr>
 			<th colspan="3">
-				<h2>欢迎访问管家婆V1.0</h2>
+				<h2>欢迎访问雪娃子管家婆系统V1.0</h2>
 			</th>
 		</tr>
 		<tbody>
 			<tr style="height: 150px;">
 				<td class="content"><img src="${basePath }img/1.jpg"
 					style="height: 50px; width: 50px;"><a
-					href="${basePath }acc/addMoney.shtml">哈哈哈,有钱了</a></td>
+					href="${basePath }acc/incomeRecord.shtml">哈哈哈,有钱了</a></td>
 				<td class="content"><img src="${basePath }img/2.jpg"
 					style="height: 50px; width: 50px;"><a href="${basePath }acc/consumeRecord.shtml">T T又花钱了</a></td>
 				<td class="content"><img src="${basePath }img/3.jpg"
