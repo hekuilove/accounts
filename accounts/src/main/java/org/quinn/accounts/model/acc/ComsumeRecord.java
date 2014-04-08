@@ -10,12 +10,13 @@ import org.quinn.accounts.model.BaseModel;
  */
 public class ComsumeRecord extends BaseModel {
 
-
 	private String comsumeType;
 
 	private Double comsumeMoney;
 
 	private Integer createBy;
+
+	private ComsumeType type;
 
 	public Integer getCreateBy() {
 		return createBy;
@@ -40,4 +41,13 @@ public class ComsumeRecord extends BaseModel {
 	public void setComsumeMoney(Double comsumeMoney) {
 		this.comsumeMoney = comsumeMoney;
 	}
+
+	public ComsumeType getType() {
+		return type;
+	}
+
+	public void setType(ComsumeType type) {
+		this.type = type;
+	}
+
 }

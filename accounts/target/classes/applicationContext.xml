@@ -12,7 +12,8 @@
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
-		<property name="url" value="jdbc:mysql://localhost:3306/accounts" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/accounts?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="root" />
 		<property name="password" value="sasa" />
 
@@ -37,10 +38,9 @@
 		<property name="filters" value="stat" />
 
 	</bean>
-	
-	<!-- <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-		<property name="securityManager" ref="securityManager" />
-	</bean> -->
+
+	<!-- <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"> 
+		<property name="securityManager" ref="securityManager" /> </bean> -->
 
 	<!-- <bean id=" myRealm" class="org.quinn.accounts.shiro.realm.MyJdbcRealm" 
 		/> <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"> 

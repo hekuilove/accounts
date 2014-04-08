@@ -38,7 +38,6 @@
 
 
 	<!-- 定时器 定时器一定要配置在注解扫描之后，不然task不起作用 -->
-	<!-- <import resource="classpath:totalpayserver-crontab.xml" /> -->
 	<!-- 支持spring mvc新的注解类型 详细spring3.0手册 15.12.1 mvc:annotation-driven -->
 	<!-- 配置视图解析器 -->
 	<bean id="viewResolver"

@@ -4,15 +4,6 @@ import java.util.List;
 
 public class Paginate<T> {
 
-
-	public Paginate() {
-		this(6);
-	}
-
-	public Paginate(int pageNosLen) {
-		pageNos = new int[pageNosLen];
-	}
-
 	private T bean;
 
 	private int[] pageNos;
@@ -89,10 +80,9 @@ public class Paginate<T> {
 
 	public void setPageAllSize(Integer pageAllSize) {
 		this.pageAllSize = pageAllSize;
-		if (this.pageAllSize > 0) {
-			this.pageAllNo = this.pageAllSize / (this.pageSize + (this.pageSize - 1));
-		}
-		if (this.pageAllNo < this.pageNos.length && pageAllNo > 0) {
+		this.pageAllNo = (this.pageAllSize + (this.pageSize - 1)) / this.pageSize;
+		pageNos = new int[this.pageAllNo < 6 ? this.pageAllNo : 6];
+		if (this.pageAllNo < 6 && pageAllNo > 0) {
 			for (int i = 0; i < this.pageAllNo; i++)
 				pageNos[i] = i + 1;
 		} else if (this.pageAllNo > this.pageNos.length) {
@@ -106,7 +96,7 @@ public class Paginate<T> {
 	public MySQLLimitParam getLimit() {
 		if (this.limit == null)
 			this.limit = new MySQLLimitParam();
-		limit.setFirstPara(pageNo == 1 ? 0 : (this.pageNo - 1) * pageSize - 1);
+		limit.setFirstPara(pageNo == 1 ? 0 : (this.pageNo - 1) * pageSize );
 		limit.setNextPara(this.pageSize);
 		return limit;
 	}
@@ -118,7 +108,6 @@ public class Paginate<T> {
 	 * @date 2014年4月3日下午9:30:31<br>
 	 */
 	public static class MySQLLimitParam {
-
 
 		private int firstPara;
 

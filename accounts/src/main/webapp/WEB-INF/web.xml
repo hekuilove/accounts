@@ -9,7 +9,8 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:applicationContext.xml,
-			classpath:applicationContext_shiro.xml
+			classpath:applicationContext_shiro.xml,
+			classpath:mybatis-dao.xml
 		</param-value>
 	</context-param>
 	<context-param>

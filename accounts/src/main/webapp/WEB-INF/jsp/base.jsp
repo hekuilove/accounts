@@ -10,5 +10,6 @@
 	pageContext.setAttribute("basePath", basePath);
 %>
 <script type="text/javascript" src="${basePath }js/jquery.1.11.min.js"></script>
+<script type="text/javascript" src="${basePath }js/paginate.js"></script>
 </head>
 </html>

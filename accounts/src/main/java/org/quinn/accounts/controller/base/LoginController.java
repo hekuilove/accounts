@@ -2,9 +2,7 @@ package org.quinn.accounts.controller.base;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
 import org.quinn.accounts.controller.AbstractController;
 import org.quinn.accounts.shiro.ShiroUtils;
@@ -47,6 +45,7 @@ public class LoginController extends AbstractController {
 	public String noAuthorize() {
 		return "/login/noAuthorize";
 	}
+	
 
 	@RequestMapping(value = "successTest")
 	@RequiresRoles(value = "admin")
