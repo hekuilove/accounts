@@ -34,4 +34,20 @@ public class RoleServiceImpl implements IRoleService {
 		return roles;
 	}
 
+	@Override
+	public List<String> findRoleNameByUsername(String username) {
+		String sql = "SELECT ROLE_NAME FROM T_USER_ROLE A INNER JOIN t_role B ON A.role_id = B.role_id WHERE USERNAME=?";
+		final List<String> roles = this.jdbcTemplate.queryForList(sql, new Object[] { username }, String.class);
+		return roles;
+	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	
 }

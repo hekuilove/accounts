@@ -16,36 +16,51 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.quinn.accounts.context.MyApplicationContext;
 import org.quinn.accounts.model.base.Permission;
 import org.quinn.accounts.model.base.Role;
 import org.quinn.accounts.model.base.User;
 import org.quinn.accounts.service.base.IPermissionService;
 import org.quinn.accounts.service.base.IRoleService;
 import org.quinn.accounts.service.base.IUserService;
+import org.quinn.accounts.shiro.PrincipalInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AuthRealm extends AuthorizingRealm {
 
 	@Autowired
 	private IRoleService roleService;
-	
+	@Autowired
+	private IPermissionService permissionService;
+	@Autowired
+	private IUserService userService;
+
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		IRoleService roleService = MyApplicationContext.getBeansByType(IRoleService.class);
-		IPermissionService permissionService = MyApplicationContext.getBeansByType(IPermissionService.class);
-		List<Role> roles = roleService.findByUsername((String) principals.getPrimaryPrincipal());
-		List<String> roleIds = this.getRoleIds(roles);
-		Set<Permission> permissions = permissionService.findByRoles(roleIds);
 		SimpleAuthorizationInfo author = new SimpleAuthorizationInfo();
-		for (Role role : roles)
-			author.addRole(role.getRoleName());
-		if (permissions != null)
-			for (Permission per : permissions)
-				if (per.getPermissionType() == 2)
-					author.addObjectPermission(new WildcardPermission(per.getPermissionName()));
-				else if (per.getPermissionType() == 1)
-					author.addStringPermission(per.getPermissionName());
+		PrincipalInfo info = (PrincipalInfo) principals.getPrimaryPrincipal();
+		if (!info.getRoles().isEmpty() || !info.getPermissions().isEmpty()) {
+			for (String role : info.getRoles())
+				author.addRole(role);
+			for (String per : info.getPermissions())
+				if (per.indexOf("/") != -1) //URL
+					author.addStringPermission(per);
+				else
+					author.addObjectPermission(new WildcardPermission(per));
+		} else {
+			List<Role> roles = roleService.findByUsername((String) principals.getPrimaryPrincipal());
+			List<String> roleIds = this.getRoleIds(roles);
+			Set<Permission> permissions = permissionService.findByRoles(roleIds);
+			for (Role role : roles)
+				author.addRole(role.getRoleName());
+			if (permissions != null)
+				for (Permission per : permissions)
+					if (per.getPermissionType() == 2)
+						author.addObjectPermission(new WildcardPermission(per.getPermissionName()));
+					else if (per.getPermissionType() == 1)
+						author.addStringPermission(per.getPermissionName());
+		}
 		return author;
 	}
 
@@ -64,13 +79,19 @@ public class AuthRealm extends AuthorizingRealm {
 		UsernamePasswordToken tok = (UsernamePasswordToken) token;
 		String username = tok.getUsername();
 		String password = new String(tok.getPassword());
-		IUserService userService = MyApplicationContext.getBeansByType(IUserService.class);
 		if (userService.findByUsername(username) == null)
 			throw new UnknownAccountException();
 		User user = userService.findByUsernameAndPassword(username, password);
 		if (user == null)
 			throw new IncorrectCredentialsException();
-		return new SimpleAuthenticationInfo(username, password, getName());
+		PrincipalInfo principal = new PrincipalInfo(username);
+		List<Role> roles = roleService.findByUsername(username); //获取角色信息
+		List<String> roleIds = this.getRoleIds(roles);
+		Set<String> permissions = permissionService.findPermissionNameByRoles(roleIds); //获取对应权限信息
+		principal.addAllPermission(permissions);
+		for (Role role : roles)
+			principal.addRole(role.getRoleName());
+		return new SimpleAuthenticationInfo(principal, password, getName());
 	}
 
 	@Override
@@ -92,4 +113,29 @@ public class AuthRealm extends AuthorizingRealm {
 		super.getAuthenticationCache().clear();
 		super.getAuthorizationCache().clear();
 	}
+
+	public IRoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoleService(IRoleService roleService) {
+		this.roleService = roleService;
+	}
+
+	public IPermissionService getPermissionService() {
+		return permissionService;
+	}
+
+	public void setPermissionService(IPermissionService permissionService) {
+		this.permissionService = permissionService;
+	}
+
+	public IUserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
+	}
+
 }

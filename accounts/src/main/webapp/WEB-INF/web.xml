@@ -70,7 +70,7 @@
 
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*.aaaa</url-pattern>
 	</filter-mapping>
 
 	<error-page>

@@ -1,11 +1,17 @@
 package org.quinn.accounts.controller.base;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.quinn.accounts.controller.AbstractController;
+import org.quinn.accounts.service.base.IRoleService;
+import org.quinn.accounts.shiro.PrincipalInfo;
 import org.quinn.accounts.shiro.ShiroUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +24,9 @@ public class LoginController extends AbstractController {
 
 	private Logger log = Logger.getLogger(LoginController.class);
 
+	@Autowired
+	private IRoleService roleService;
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginG() {
 		Subject subject = ShiroUtils.getSubject();
@@ -35,7 +44,8 @@ public class LoginController extends AbstractController {
 		token.setUsername(username);
 		token.setPassword(password.toCharArray());
 		subject.login(token);
-		log.info(subject.hasRole("管理员"));
+		PrincipalInfo info = (PrincipalInfo) subject.getPrincipal();
+		log.info(subject.hasRole("admin"));
 		log.info(subject.isPermitted("/user/getUser"));
 		ModelAndView mav = new ModelAndView("/login/success");
 		return mav;
@@ -45,7 +55,6 @@ public class LoginController extends AbstractController {
 	public String noAuthorize() {
 		return "/login/noAuthorize";
 	}
-	
 
 	@RequestMapping(value = "successTest")
 	@RequiresRoles(value = "admin")

@@ -86,7 +86,7 @@
 			
 				<a class="btn btn-success btn-lg pull-right" href="${basePath }acc/index.shtml">Back to Home Page</a>
 				<button type="button" class="btn btn-primary btn-lg pull-right"
-				data-toggle="modal" data-target="#myModal">Add Income</button>
+				data-toggle="modal" data-target="#myModal">Add Consume Info</button>
 		</p>
 	</div>
 
@@ -101,7 +101,7 @@
 						Info</h4>
 				</div>
 				<form class="form-horizontal" role="form"
-					action="${basePath }acc/addIncome.shtml" method="post">
+					action="${basePath }acc/addConsume.shtml" method="post">
 					<div class="modal-body">
 
 						<div class="form-group">
@@ -118,6 +118,17 @@
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="sumMoney"
 									placeholder="Input Money">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-2 control-label">Type</label>
+							<div class="col-sm-10">
+								<select name="" class="form-control">
+									<c:forEach var="tp" items="${tys }">
+										<option value="${tp.id }">${tp.type }</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 

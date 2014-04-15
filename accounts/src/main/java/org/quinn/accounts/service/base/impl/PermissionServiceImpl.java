@@ -28,7 +28,7 @@ public class PermissionServiceImpl implements IPermissionService {
 		sql.append(" AND B.ROLE_ID IN (");
 		for (int i = 0; i < roleIds.size(); i++)
 			sql.append("?,");
-		sql.delete(sql.length() -1, sql.length() );
+		sql.delete(sql.length() - 1, sql.length());
 		sql.append(") GROUP BY A.permission_id");
 		this.jdbcTemplate.query(sql.toString(), roleIds.toArray(), new RowCallbackHandler() {
 
@@ -42,5 +42,31 @@ public class PermissionServiceImpl implements IPermissionService {
 			}
 		});
 		return permissions;
+	}
+
+	@Override
+	public Set<String> findPermissionNameByRoles(List<String> roleIds) {
+		if (roleIds == null || roleIds.size() == 0)
+			return null;
+		final Set<String> permissions = new HashSet<String>();
+		StringBuffer sql = new StringBuffer("SELECT A.PERMISSION_NAME FROM t_permission A LEFT JOIN t_role_permission B  ");
+		sql.append("ON A.PERMISSION_ID = B.PERMISSION_ID WHERE 1=1");
+		sql.append(" AND B.ROLE_ID IN (");
+		for (int i = 0; i < roleIds.size(); i++)
+			sql.append("?,");
+		sql.delete(sql.length() - 1, sql.length());
+		sql.append(") GROUP BY A.permission_id");
+		List<String> list = this.jdbcTemplate.queryForList(sql.toString(), roleIds.toArray(), String.class);
+		for (String s : list)
+			permissions.add(s);
+		return permissions;
+	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 }

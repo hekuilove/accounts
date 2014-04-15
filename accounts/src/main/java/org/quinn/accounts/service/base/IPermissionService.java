@@ -8,4 +8,6 @@ import org.quinn.accounts.model.base.Permission;
 public interface IPermissionService {
 
 	Set<Permission> findByRoles(List<String> roleIds);
+
+	Set<String> findPermissionNameByRoles(List<String> roleIds);
 }

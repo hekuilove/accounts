@@ -1,5 +1,7 @@
 package org.quinn.accounts.service.acc;
 
+import java.util.List;
+
 import org.quinn.accounts.model.acc.ComsumeRecord;
 import org.quinn.accounts.model.acc.ComsumeType;
 import org.quinn.accounts.util.paginate.Paginate;
@@ -11,4 +13,6 @@ public interface IComsumeService {
 	void addRecord(ComsumeRecord record);
 
 	Paginate<ComsumeRecord> paginateConsumeRecord(Paginate<ComsumeRecord>  paginate);
+	
+	List<ComsumeType> findComsumeType();
 }

@@ -26,7 +26,7 @@
 				<input type="text" name="time2" value="${param.time2 }"
 					class="form-control" onClick="WdatePicker()">
 			</div>
-			<div class="form-group">哪位大神</div>
+			<div class="form-group">哪位大神${aaa==null }</div>
 			<div class="form-group">
 				<select name="createBy" class="form-control">
 					<option value=""></option>

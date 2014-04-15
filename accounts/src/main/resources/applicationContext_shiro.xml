@@ -16,6 +16,19 @@
 		value="md5" /> <property name="hashIterations" value="2" /> <property name="storedCredentialsHexEncoded" 
 		value="true" /> </bean> -->
 
+	<bean id="roleService" class="org.quinn.accounts.service.base.impl.RoleServiceImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+
+	<bean id="permissionService"
+		class="org.quinn.accounts.service.base.impl.PermissionServiceImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+
+	<bean id="userService" class="org.quinn.accounts.service.base.impl.UserServiceImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+
 	<!-- Realm实现 -->
 	<bean id="userRealm" class="org.quinn.accounts.shiro.realm.AuthRealm">
 		<property name="cachingEnabled" value="true" />
@@ -23,6 +36,9 @@
 		<property name="authenticationCacheName" value="authenticationCache" />
 		<property name="authorizationCachingEnabled" value="true" />
 		<property name="authorizationCacheName" value="authorizationCache" />
+		<property name="roleService" ref="roleService" />
+		<property name="permissionService" ref="permissionService" />
+		<property name="userService" ref="userService" />
 	</bean>
 
 	<bean id="permissionResolver"
@@ -111,7 +127,7 @@
 			<util:map>
 				<!-- 这个过滤器会自动跳转到登录页面 -->
 				<entry key="authc" value-ref="formAuthenticationFilter" />
-				
+
 				<!-- 这个过滤器会弹出登录框然后跳转到要去的页面 -->
 				<entry key="authcBasic" value-ref="basicHttpAuthenticationFilter"></entry>
 			</util:map>
@@ -128,7 +144,7 @@
 		</property>
 	</bean>
 
-	<!-- Shiro生命周期处理器 -->
+	<!-- Shiro生命周期处理器  authcBasic-->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
 </beans>

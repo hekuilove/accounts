@@ -2,6 +2,8 @@ package org.quinn.accounts.service.acc.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.quinn.accounts.model.acc.ComsumeRecord;
 import org.quinn.accounts.model.acc.ComsumeType;
@@ -13,6 +15,7 @@ import org.quinn.accounts.util.paginate.PaginateService;
 import org.quinn.accounts.util.paginate.PaginateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -70,6 +73,26 @@ public class ComsumerServiceImpl implements IComsumeService {
 			e.printStackTrace();
 		}
 		return paginate;
+	}
+
+	@Override
+	public List<ComsumeType> findComsumeType() {
+		String sql = "SELECT * FROM T_COMSUME_TYPE";
+		final List<ComsumeType> types = new ArrayList<ComsumeType>();
+
+		this.jdbcTemplate.query(sql, new RowMapper<ComsumeType>() {
+			@Override
+			public ComsumeType mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ComsumeType ct = new ComsumeType();
+				ct.setCreateDate(rs.getDate("createDate"));
+				ct.setId(rs.getString("id"));
+				ct.setRemark(rs.getString("remark"));
+				ct.setType(rs.getString("type"));
+				types.add(ct);
+				return ct;
+			}
+		});
+		return types;
 	}
 
 }

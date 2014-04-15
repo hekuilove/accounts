@@ -18,7 +18,7 @@ public class MainTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(sb);
+		System.out.println(0x1<<0x3);
 	}
 
 }
