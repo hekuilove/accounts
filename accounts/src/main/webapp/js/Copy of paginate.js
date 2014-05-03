@@ -1,27 +1,27 @@
 /*奎哥写的分页插件*/
 
-function Paginate () {
+var Paginate = function() {
 
-	this.pageNoName = "pageNo";
+	var pageNoName = "pageNo";
 
-	this.pageSizeName = "pageSize";
+	var pageSizeName = "pageSize";
 
-	this.pageNo = 1;
+	var pageNo = 1;
 
-	this.pageSize = 10;
+	var pageSize = 10;
 	
 	/**
 	 * 用于ajax方式
 	 */
-	this.myform ;
+	var myform ;
 	
-	this.dataPair ;
+	var dataPair ;
 	
-	Paginate.prototype.setDataPair = function (dp){
+	this.setDataPair = function (dp){
 		dataPair = dp;
 	}
 
-	Paginate.prototype.setForm = function(f){
+	this.setForm = function(f){
 		myform = f;
 	}
 	/**
@@ -31,30 +31,30 @@ function Paginate () {
 	 * @param isSubmit
 	 *            设置完是否需要马上提交form
 	 */
-	Paginate.prototype.set = function(pageN, pageS, isSubmit) {
+	this.set = function(pageN, pageS, isSubmit) {
 		pageNo = pageN;
 		pageSize = pageS;
 		if (isSubmit)
 			this.subform();
 	}
 
-	Paginate.prototype.setPageNo = function(pageN, isSubmit) {
+	this.setPageNo = function(pageN, isSubmit) {
 		pageNo = pageN;
 		if (isSubmit)
 			this.subform();
 	}
 
-	Paginate.prototype.setPageSize = function(pageS, isSubmit) {
+	this.setPageSize = function(pageS, isSubmit) {
 		pageSize = pageS;
 		if (isSubmit)
 			this.subform();
 	}
 	
-	Paginate.prototype.subform = function(){
+	this.subform = function(){
 		myform[0].submit();
 	}
 
-	Paginate.prototype.initTabByAjax = function(u){
+	this.initTabByAjax = function(u,){
 		
 		$.ajax({
 			url:u,
