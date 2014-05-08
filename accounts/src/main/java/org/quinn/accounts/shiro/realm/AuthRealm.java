@@ -23,41 +23,39 @@ import org.quinn.accounts.service.base.IPermissionService;
 import org.quinn.accounts.service.base.IRoleService;
 import org.quinn.accounts.service.base.IUserService;
 import org.quinn.accounts.shiro.PrincipalInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class AuthRealm extends AuthorizingRealm {
 
-	@Autowired
 	private IRoleService roleService;
-	@Autowired
 	private IPermissionService permissionService;
-	@Autowired
 	private IUserService userService;
 
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+	protected AuthorizationInfo doGetAuthorizationInfo(
+			PrincipalCollection principals) {
 		SimpleAuthorizationInfo author = new SimpleAuthorizationInfo();
 		PrincipalInfo info = (PrincipalInfo) principals.getPrimaryPrincipal();
 		if (!info.getRoles().isEmpty() || !info.getPermissions().isEmpty()) {
 			for (String role : info.getRoles())
 				author.addRole(role);
 			for (String per : info.getPermissions())
-				if (per.indexOf("/") != -1) //URL
+				if (per.indexOf("/") != -1) // URL
 					author.addStringPermission(per);
 				else
 					author.addObjectPermission(new WildcardPermission(per));
 		} else {
-			List<Role> roles = roleService.findByUsername((String) principals.getPrimaryPrincipal());
+			List<Role> roles = roleService.findByUsername((String) principals
+					.getPrimaryPrincipal());
 			List<String> roleIds = this.getRoleIds(roles);
-			Set<Permission> permissions = permissionService.findByRoles(roleIds);
+			Set<Permission> permissions = permissionService
+					.findByRoles(roleIds);
 			for (Role role : roles)
 				author.addRole(role.getRoleName());
 			if (permissions != null)
 				for (Permission per : permissions)
 					if (per.getPermissionType() == 2)
-						author.addObjectPermission(new WildcardPermission(per.getPermissionName()));
+						author.addObjectPermission(new WildcardPermission(per
+								.getPermissionName()));
 					else if (per.getPermissionType() == 1)
 						author.addStringPermission(per.getPermissionName());
 		}
@@ -75,7 +73,8 @@ public class AuthRealm extends AuthorizingRealm {
 	}
 
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(
+			AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken tok = (UsernamePasswordToken) token;
 		String username = tok.getUsername();
 		String password = new String(tok.getPassword());
@@ -85,9 +84,10 @@ public class AuthRealm extends AuthorizingRealm {
 		if (user == null)
 			throw new IncorrectCredentialsException();
 		PrincipalInfo principal = new PrincipalInfo(username);
-		List<Role> roles = roleService.findByUsername(username); //获取角色信息
+		List<Role> roles = roleService.findByUsername(username); // 获取角色信息
 		List<String> roleIds = this.getRoleIds(roles);
-		Set<String> permissions = permissionService.findPermissionNameByRoles(roleIds); //获取对应权限信息
+		Set<String> permissions = permissionService
+				.findPermissionNameByRoles(roleIds); // 获取对应权限信息
 		principal.addAllPermission(permissions);
 		for (Role role : roles)
 			principal.addRole(role.getRoleName());

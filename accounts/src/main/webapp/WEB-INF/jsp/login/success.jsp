@@ -12,6 +12,8 @@
 	<br>
 	<a href="${basePath }test/pag1.shtml">GO MY PAGE TEST 1</a><br>
 	<a href="${basePath }test/pag22.shtml">GO MY PAGE TEST 2</a><br>
+	<a href="${basePath }test/pag33.shtml">GO MY PAGE TEST 3</a><br>
+	<a href="${basePath }test/pag44.shtml">GO MY PAGE TEST 4</a><br>
 	<a href="${basePath }acc/index.shtml">GO MY SYSTEM</a>
 </body>
 </html>

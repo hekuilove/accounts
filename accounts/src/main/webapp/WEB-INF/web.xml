@@ -61,7 +61,6 @@
 	<filter>
 		<filter-name>shiroFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>targetFilterLifecycle</param-name>
 			<param-value>true</param-value>
@@ -70,11 +69,10 @@
 
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
-		<url-pattern>*.aaaa</url-pattern>
+		<url-pattern>*.shtml</url-pattern>
 	</filter-mapping>
 
 	<error-page>
-		<exception-type>SESSION过期了跳转页面</exception-type>
 		<exception-type>org.apache.shiro.session.InvalidSessionException</exception-type>
 		<location>/invalidSession.jsp</location>
 	</error-page>

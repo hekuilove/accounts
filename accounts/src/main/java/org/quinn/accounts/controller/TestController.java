@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TestController extends AbstractController {
 
-
 	@Autowired
 	private IncomeMapper incomeMapper;
 
@@ -32,7 +31,8 @@ public class TestController extends AbstractController {
 
 	@RequestMapping(value = "test2")
 	public String test2() {
-		System.out.println(this.incomeDAO.findByPk("02b3b01ed14b4dd495a8292b648ac97e"));
+		System.out.println(this.incomeDAO
+				.findByPk("02b3b01ed14b4dd495a8292b648ac97e"));
 		return "/test/test1";
 	}
 
@@ -50,13 +50,20 @@ public class TestController extends AbstractController {
 		pb.initFooter();
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "pag22")
 	public String pag22() {
 		return "/test/pag2";
 	}
-	
-	
+
+	@RequestMapping(value = "pag33")
+	public String pag33() {
+		return "/test/pag3";
+	}
+	@RequestMapping(value = "pag44")
+	public String pag44() {
+		return "/test/pag4";
+	}
 
 	@RequestMapping(value = "pag2")
 	@ResponseBody
@@ -83,7 +90,7 @@ public class TestController extends AbstractController {
 			user.setAddress("上海" + i + "村");
 			user.setAge(i);
 			user.setDepartment("第" + i + "部门");
-			user.setName("江狗" + i);
+			user.setName("共匪" + i + "号");
 			USERS.add(user);
 		}
 	}

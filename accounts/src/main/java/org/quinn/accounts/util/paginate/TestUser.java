@@ -1,7 +1,9 @@
 package org.quinn.accounts.util.paginate;
 
-public class TestUser {
+import java.util.HashMap;
+import java.util.Map;
 
+public class TestUser {
 
 	private String name;
 
@@ -10,6 +12,27 @@ public class TestUser {
 	private String address;
 
 	private String department;
+
+	public static void main(String[] args) {
+		int a = 1;
+		int b = 10000;
+		while (a < b)
+			a <<= 1;
+		System.out.println(a);
+		HashMap<String, Object> map = new HashMap<String, Object>(100);
+		for (int i = 0; i < 98; i++) {
+			if (i == 95) {
+				System.out.println(2);
+			}
+			map.put("a" + i, 1);
+
+		}
+	}
+
+	static void p() {
+		String s = "aa";
+		int a = 1;
+	}
 
 	public String getName() {
 		return name;
