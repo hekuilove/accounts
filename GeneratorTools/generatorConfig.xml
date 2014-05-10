@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<context id="context1">
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="RDP"
+			password="1" />
+		<javaModelGenerator targetPackage="com.rdp.security.model"
+			targetProject="GeneratorTools" />
+
+		<!-- 我暂时不用这个生成Mapper和Xml ，所以用不着 -->
+
+		<!-- <sqlMapGenerator targetPackage="com.topsci.atfm.persistence.mybatis.mapper" 
+			targetProject="GeneratorTools"></sqlMapGenerator> <javaClientGenerator targetPackage="com.topsci.atfm.persistence.mybatis.client" 
+			targetProject="GeneratorTools" type="XMLMAPPER" /> -->
+		<table tableName="SEC_OBJ1001" domainObjectName="SecObjPo"></table>
+	</context>
+</generatorConfiguration>  

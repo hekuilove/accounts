@@ -115,8 +115,8 @@ public class PageBean<T> {
 	}
 
 	public void initFooter() {
-		StringBuffer footer = new StringBuffer("共<font color=\"red\">")
-				.append(this.pageAllSize);
+		StringBuffer footer = new StringBuffer("共<font color=\"red\">");
+		footer.append(this.pageAllSize);
 		footer.append("</font>行&nbsp;"); // 总行数
 		footer.append("共<font color=\"red\">").append(this.getPageAllNo());
 		footer.append("</font>页&nbsp;"); // 共多少页
@@ -125,20 +125,20 @@ public class PageBean<T> {
 		footer.append("每页显示<font color=\"red\">").append(this.getPageSize());
 		footer.append("</font>行&nbsp;"); // 每页显示多少行
 		if (this.getPageNo() != 1) {
-			footer.append("<a href='javascript:;' onclick='firstOrEndPag(this,true,");
-			footer.append(this.isAjax + ","+this.tableId+")'>首页</a>&nbsp;");
-			footer.append("<a href='javascript:;' onclick='doPag(this,true,");
-			footer.append(this.isAjax + ","+this.tableId+")'>上一页</a>&nbsp;");
+			footer.append("<a href='javascript:;' onclick=\"firstOrEndPag(this,true,");
+			footer.append(this.isAjax + ",'"+this.tableId+"')\">首页</a>&nbsp;");
+			footer.append("<a href='javascript:;' onclick=\"doPag(this,true,");
+			footer.append(this.isAjax + ",'"+this.tableId+"')\">上一页</a>&nbsp;");
 		}
 		if (!this.getPageNo().equals(this.getPageAllNo())) {
-			footer.append("<a href='javascript:;' onclick='doPag(this,false,");
-			footer.append(this.isAjax + ","+this.tableId+")'>下一页</a>&nbsp;");
-			footer.append("<a href='javascript:;' onclick='firstOrEndPag(this,false,");
-			footer.append(this.isAjax + ","+this.tableId+")'>末页</a>&nbsp;");
+			footer.append("<a href='javascript:;' onclick=\"doPag(this,false,");
+			footer.append(this.isAjax + ",'"+this.tableId+"')\">下一页</a>&nbsp;");
+			footer.append("<a href='javascript:;' onclick=\"firstOrEndPag(this,false,");
+			footer.append(this.isAjax + ",'"+this.tableId+"')\">末页</a>&nbsp;");
 		}
 		footer.append("去<input type=\"text\" style=\"width: 30px\" id='pgno'>页&nbsp;");
-		footer.append("<a href=\"javascript:;\" onclick='goPag(this,");
-		footer.append(this.isAjax + ","+this.tableId+")'>GO</a>");
+		footer.append("<a href=\"javascript:;\" onclick=\"goPag(this,");
+		footer.append(this.isAjax + ",'"+this.tableId+"')\">GO</a>");
 		/*
 		 * hidden部分
 		 */
@@ -158,7 +158,7 @@ public class PageBean<T> {
 
 	public void setPageAllSize(Integer pageAllSize) {
 		this.pageAllSize = pageAllSize;
-		this.pageAllNo = (this.pageAllSize + (this.pageSize - 1))
+		this.pageAllNo = (this.pageAllSize + this.pageSize - 1)
 				/ this.pageSize;
 		pageNos = new int[this.pageAllNo < 6 ? this.pageAllNo : 6];
 		if (this.pageAllNo < 6 && pageAllNo > 0) {

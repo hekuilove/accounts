@@ -258,7 +258,7 @@ function firstOrEndPag(obj, isFirst, iajax,tbId) {
 		}
 		formObj[0].submit();
 	} else {
-		var tb = pagObj.get(tbId).getTable();
+		var tb = getMyPaginateObj(tbId).getTable();
 		var fom = tb.parent();
 		if (isFirst)
 			fom.find("input:hidden[name='pageNo']").val(1);
@@ -266,7 +266,7 @@ function firstOrEndPag(obj, isFirst, iajax,tbId) {
 			var pgAllNo = fom.find("input:hidden[id='pageAllNo']").val();
 			fom.find("input:hidden[name='pageNo']").val(pgAllNo);
 		}
-		pagObj.get(tbId).initTabByAjax();
+		getMyPaginateObj(tbId).initTabByAjax();
 	}
 }
 
@@ -280,14 +280,14 @@ function doPag(obj, isAgo, isAjax,tbId) {
 			formObj.find("input:hidden[name='pageNo']").val(parseInt(pgNo) + 1);
 		formObj[0].submit();
 	} else {
-		var tb = pagObj.get(tbId).getTable();
+		var tb = getMyPaginateObj(tbId).getTable();
 		var fom = tb.parent();
 		var pg = fom.find("input:hidden[name='pageNo']").val();
 		if (isAgo)
 			fom.find("input:hidden[name='pageNo']").val(parseInt(pg) - 1);
 		else
 			fom.find("input:hidden[name='pageNo']").val(parseInt(pg) + 1);
-		pagObj.get(tbId).initTabByAjax();
+		getMyPaginateObj(tbId).initTabByAjax();
 	}
 
 }
@@ -297,7 +297,7 @@ function goPag(obj, iajax,tbId) {
 	if(!iajax)
 		 formObj = $(obj).parent().parent().parent().parent().parent();
 	else
-		formObj = pagObj.get(tbId).getTable().parent();
+		formObj = getMyPaginateObj(tbId).getTable().parent();
 	var pgno = formObj.find("input:text[id='pgno']").val();
 	if (pgno == null || pgno.length == 0) {
 		alert("请输入页数");
@@ -317,14 +317,18 @@ function goPag(obj, iajax,tbId) {
 	if (!iajax) {
 		formObj[0].submit();
 	}else{
-		pagObj.get(tbId).initTabByAjax();
+		getMyPaginateObj(tbId).initTabByAjax();
 	}
 }
 
 /**
  * 开发者自己创建的Paginate对象
  */
-var pagObj = new HashMap();
+var pagObj = {};
+
+function getMyPaginateObj(tbId){
+	return eval("pagObj."+tbId);
+}
 
 /**
  * 开发者new了Paginate之后 需要执行该方法
@@ -334,5 +338,5 @@ var pagObj = new HashMap();
  */
 function initPaginateObj(depagObj) {
 	var tbId = depagObj.getTable().attr("id");
-	pagObj.put(tdId,depagObj);
+	eval("pagObj."+tbId+"=depagObj");
 }

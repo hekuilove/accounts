@@ -28,23 +28,6 @@
 		
 	});
 
-	function initTab() {
-		var da = $("#aaaa").serialize();
-		/* var pg = new Paginate(); */
-		$.ajax({
-			url : "${basePath}test/pag2.shtml",
-			type : "post",
-			dataType : "json",
-			data : da,
-			success : function(P) {
-				$.each(P.datas, function(ind, obj) {
-				})
-			},
-			error : function() {
-				alert("success");
-			}
-		})
-	}
 </script>
 </head>
 <body>
